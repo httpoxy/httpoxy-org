@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include head.html %}
+  <body>
+    <div class="container">
+      <header class="row">
+        <h1 class="display-1 m-t-1">
+          <object type="image/svg+xml" data="/img/logo.svg">
+            <img src="/img/logo.png" alt="httpoxy" />
+          </object>
+        </h1>
+      </header>
+
+      <div class="row">
+        {{ content }}
+      </div>
+    </div>
+
+    {% include footer.html %}
+  </body>
+</html>

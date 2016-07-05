@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  {% include head.html %}
+  <body>
+    <div class="container">
+      <header class="row">
+        <h1 class="display-1 m-t-1">
+          <object type="image/svg+xml" data="/img/logo.svg">
+            <img src="/img/logo.png" alt="httpoxy" />
+          </object>
+        </h1>
+      </header>
+
+      <div class="row">
+        <div class="col-md-3 col-md-push-9" id="sidebar">
+          {% capture toc %}{% include toc.md %}{% endcapture %}
+          {{ toc | markdownify }}
+        </div>
+        <div class="col-md-9 col-md-pull-3" id="content-container">
+          <h2 id="top">
+            A CGI application vulnerability
+            <small class="text-muted">for PHP, Go, Python and&nbsp;others</small>
+          </h2>
+
+          {{ content }}
+        </div>
+      </div>
+    </div>
+
+    {% include footer.html %}
+  </body>
+</html>

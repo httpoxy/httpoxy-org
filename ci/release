@@ -1,0 +1,27 @@
+#!/bin/bash
+
+set -ex
+
+git add -f _site
+
+git rm -r \
+_includes \
+_layouts \
+_sass \
+ci \
+css \
+img \
+Gemfile \
+Gemfile.lock \
+_config.yml \
+index.md \
+README.md
+
+git config --local user.email admin+githubtravis@httpoxy.org
+git config --local user.name "Travis CI"
+
+git commit \
+  -m "Released at `date +%s`"
+
+git checkout -B release
+git push -fu origin release:release

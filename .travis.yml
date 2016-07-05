@@ -1,0 +1,17 @@
+language: ruby
+cache: bundler
+rvm:
+  - 2.3.1
+
+branches:
+  only:
+    - master
+
+install:
+ - ./ci/setup
+
+script:
+ - ./ci/build
+
+after_success:
+ - ./ci/release
