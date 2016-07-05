@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -ex
+
+echo "Using ruby version"
+ruby --version
+
+echo "Using bundler version"
+bundle --version
+
+echo "Installing bundle"
+bundle install

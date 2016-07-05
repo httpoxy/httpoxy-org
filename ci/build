@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -e
+
+bundle install
+bundle exec jekyll clean
+bundle exec jekyll build
+bundle exec htmlproofer ./_site
