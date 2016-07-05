@@ -1,0 +1,19 @@
+title: HTTPoxy
+email: contact@httproxy.org
+description: >
+  HTTPoxy is a vulnerability due to be disclosed in July 2016, affecting
+  web applications.
+baseurl: ""
+url: "https://httproxy.org"
+
+markdown: kramdown
+
+exclude:
+  - ci/
+  - vendor/
+  - Gemfile
+  - Gemfile.lockv
+
+gems:
+  - jekyll-assets
+  - bootstrap
