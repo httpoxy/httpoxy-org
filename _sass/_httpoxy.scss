@@ -1,0 +1,90 @@
+body {
+  font-size: 16px;
+}
+
+/* -- Headings -- */
+
+body, h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4 {
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 300;
+  line-height: 1.5em;
+}
+
+h1, .h1 {
+  font-size: 3.8em;
+  line-height: 1.15em;
+}
+
+h2, .h2 {
+  font-size: 2.6em;
+}
+
+h3, .h3 {
+  font-size: 1.825em;
+  line-height: 1.4em;
+  margin: 20px 0 10px;
+}
+
+h4, .h4 {
+  font-size: 1.3em;
+  line-height: 1.4em;
+}
+
+h5, .h5 {
+  font-size: 1.25em;
+  line-height: 1.4em;
+  margin-bottom: 15px;
+}
+
+h6, .h6 {
+  font-size: 1em;
+  text-transform: uppercase;
+}
+
+/* -- Labels -- */
+
+.label {
+  border-radius: 2px;
+}
+
+.label, .label.label-default {
+  background-color: #9e9e9e;
+}
+
+.label.label-primary {
+  background-color: #9c27b0;
+}
+
+.label.label-success {
+  background-color: #4caf50;
+}
+
+.label.label-info {
+  background-color: #03a9f4;
+}
+
+.label.label-warning {
+  background-color: #fbc02d;
+}
+
+.label.label-danger {
+  background-color: #f44336;
+}
+
+/* -- */
+nav[data-toggle='toc'] {
+  margin-top: 30px;
+}
+
+/* alternatively, if you *do* want the second-level navigation to be shown (as seen on this page on mobile), use this */
+nav[data-toggle='toc'] .nav .nav {
+  display: block;
+}
+
+/* small screens */
+@media (max-width: 768px) {
+  /* override the Affix plugin so that the navigation isn't sticky */
+  nav[data-toggle='toc'] {
+    position: static;
+  }
+}
