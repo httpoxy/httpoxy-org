@@ -98,34 +98,37 @@ For example, the confirmed cases we've found so far:
 Language | Environment | HTTP client
 --- | --- | ---
 PHP | php-fpm |Guzzle >=4.0
-PHP | mod_php |Guzzle >=4.0
-Go | net/http/cgi | net/http
+| | mod_php | |
 Python | wsgiref.handlers.CGIHandler | requests
 |  | twisted.web.twcgi.CGIScript |  |
+Go | net/http/cgi | net/http
 
 But obviously there may be languages we haven't considered yet. CGI is a common standard, and
-HTTP_PROXY seems to be becoming more popular (given the number of requests to add support for
-it to HTTP clients that can be found in github issues).
+`HTTP_PROXY` seems to be becoming more popular over time.
 
 ## How it works
 
-Using PHP as an example, because it is illustrative. PHP has a method called getenv().
+Using PHP as an example, because it is illustrative. PHP has a method called `getenv()`.
 
 There is a common vulnerability in many PHP libraries and applications, introduced by confusing
-getenv() for a method that only returns environment variables. In fact, getenv() is closer to the
-$_SERVER superglobal: it contains both environment variables and user-controlled data.
+`getenv` for a method that only returns environment variables. In fact, getenv() is closer to the
+`$_SERVER` superglobal: it contains both environment variables and user-controlled data.
 
 Specifically, when PHP is running under a CGI-like server, the HTTP request headers (data supplied
- by the client) are merged into the $_SERVER superglobal under keys beginning with "HTTP_". This is
- the same information that getenv() reads from.
+ by the client) are merged into the `$_SERVER` superglobal under keys beginning with `HTTP_`. This is
+ the same information that `getenv` reads from.
 
-When a user sends a request with a Proxy header, the header appears to the PHP application as getenv('HTTP_PROXY'). Some common PHP libraries have been trusting this value, even when run in a CGI/SAPI environment.
+When a user sends a request with a `Proxy` header, the header appears to the PHP application as `getenv('HTTP_PROXY')`.
+Some common PHP libraries have been trusting this value, even when run in a CGI/SAPI environment.
 
-Reading and trusting $_SERVER['HTTP_PROXY'] is exactly the same vulnerability, but tends to happen much less often (perhaps because of getenv's name, perhaps because the semantics of the $_SERVER superglobal are better understood among the community).
+Reading and trusting `$_SERVER['HTTP_PROXY']` is exactly the same vulnerability, but tends to happen much less often
+(perhaps because of getenv's name, perhaps because the semantics of the `$_SERVER` superglobal are better understood among
+the community).
 
 ### Minimal example code
 
-NB: all these examples require deployment into a vulnerable environment before there is actually a vulnerability (e.g. php-fpm, or Apache's ScriptAlias)
+Note that these examples require deployment into a vulnerable environment before there is actually a vulnerability
+(e.g. php-fpm, or Apache's `ScriptAlias`)
 
 #### PHP
 
@@ -152,7 +155,8 @@ cgi.Serve(
         // [...]
 ```
 
-More complete PoC repos (using Docker, and testing with an actual listener for the proxied request) are prepared. Ask dominic@vendhq.com for access.
+More complete PoC repos (using Docker, and testing with an actual listener for the proxied request) have been prepared
+under the httpoxy Github organization.
 
 ## Why has this happened?
 
