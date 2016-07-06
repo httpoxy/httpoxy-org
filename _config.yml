@@ -16,4 +16,4 @@ exclude:
 
 gems:
   - jekyll-assets
-  - bootstrap
+  - bootstrap-sass
