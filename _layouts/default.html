@@ -3,12 +3,21 @@
   {% include head.html %}
   <body>
     <div class="container">
+      <header class="row">
+        <h1 class="display-1" id="top">httpoxy</h1>
+
+        <h2>
+          A CGI application vulnerability
+          <small class="text-muted">for PHP, Golang and Python</small>
+        </h2>
+      </header>
+
       <div class="row">
-        <div class="col-md-2 col-md-push-10">
+        <div class="col-md-3 col-md-push-9">
           {% capture toc %}{% include toc.md %}{% endcapture %}
           {{ toc | markdownify }}
         </div>
-        <div class="col-md-10 col-md-pull-2">
+        <div class="col-md-9 col-md-pull-3">
           {{ content }}
         </div>
       </div>

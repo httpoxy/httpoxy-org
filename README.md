@@ -4,7 +4,7 @@
 This is a static Jekyll site, so you'll need:
 
 * Ruby >= 2.2
-* Bundler (`gem install bundler`)
+* Bundler
 
 To get started, do:
 
