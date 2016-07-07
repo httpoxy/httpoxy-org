@@ -1,0 +1,15 @@
+language: ruby
+cache: bundler
+rvm:
+  - 2.2
+
+install:
+ - ./ci/setup
+
+script:
+ - ./ci/build
+
+after_script:
+ - git status
+ - git add -f _site
+ - git remote -v
