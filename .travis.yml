@@ -10,6 +10,7 @@ script:
  - ./ci/build
 
 after_script:
- - git status
+ - git co -B release
  - git add -f _site
- - git remote -v
+ - git commit -m "Released at `date +%s`"
+ - git push -fu origin release:release
