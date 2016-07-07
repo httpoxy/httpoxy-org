@@ -16,7 +16,6 @@ script:
 after_script:
  - git checkout -B release
  - git add -f _site
- - git rm -f .travis.yml
  - git rm -r ci _config.yml css Gemfile Gemfile.lock img _includes index.md _layouts README.md _sass
  - git commit -m "Released at `date +%s`"
  - git push -fu origin release:release
