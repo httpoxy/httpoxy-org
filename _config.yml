@@ -1,10 +1,10 @@
 title: HTTPoxy
-email: contact@httproxy.org
+email: contact@httpoxy.org
 description: >
   HTTPoxy is a vulnerability due to be disclosed in July 2016, affecting
   web applications.
 baseurl: ""
-url: "https://httproxy.org"
+url: "https://httpoxy.org"
 
 markdown: kramdown
 
