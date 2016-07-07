@@ -2,16 +2,18 @@
 layout: default
 ---
 
-*httpoxy* is a set of vulnerabilities affecting application code running in CGI, or CGI-like environments. In essence,
-it boils down to a namespace conflict:
+*httpoxy* is a set of vulnerabilities that affect application code running in CGI, or CGI-like environments. It comes
+down to a simple namespace conflict:
 {: .lead}
 
-* RFC 3875 (CGI) puts the HTTP `Proxy` header from a request into the environment as `HTTP_PROXY`
+* RFC 3875 (CGI) puts the HTTP `Proxy` header from a request into the environment variables as `HTTP_PROXY`
 * `HTTP_PROXY` is a popular environment variable used to configure an outgoing proxy
 {: .lead}
 
 This leads to a remotely exploitable vulnerability.
 {: .lead}
+
+#### How bad?
 
 If a vulnerable HTTP client, running in a server side process, makes an outgoing connection to an
 internal API, a remote, unauthenticated attacker may be able to
@@ -88,7 +90,7 @@ Not affected:
 
 * Python code *must be deployed under CGI to be vulnerable*. Usually, that'll mean the vulnerable code
 uses the `wsgiref.handlers.CGIHandler` package
-  * Like with Golang, actual CGI isn't considered a normal way of deploying Python web applications
+  * Like with Go, actual CGI isn't considered a normal way of deploying Python web applications
   * wsgi, for example, is not vulnerable, because os.environ is not polluted by CGI data
 * The 'requests' module will trust and use `os.environ['HTTP_PROXY']`
 
@@ -106,7 +108,7 @@ Not affected:
 the `net/http/cgi` package.
   * This is not considered a usual way of deploying Go to serve HTTP, so this will probably be a much rarer
   case of the vulnerability than PHP applications.
-  * Golang's `fcgi` package, by comparison, doesn't set actual environment variables (and uses a goroutine to handle
+  * Go's `fcgi` package, by comparison, doesn't set actual environment variables (and uses a goroutine to handle
   requests instead of PHP's entire process) it is *not* vulnerable
 * Vulnerable versions of `net/http` will trust and use `HTTP_PROXY` for outgoing requests, without checking
 if a CGI environment is present
@@ -301,7 +303,7 @@ the `find_proxy` method of `URI::Generic`, which notes:
 </blockquote>
 
 Other instances of the same vulnerability are present in other languages. For example, when
-using Golang's `net/http/cgi` module, and deploying as a CGI application. This indicates the vulnerability
+using Go's `net/http/cgi` module, and deploying as a CGI application. This indicates the vulnerability
 is a standard danger in CGI environments. It is problematic that it remains a danger in modern PHP environments.
 
 
