@@ -15,10 +15,10 @@ This leads to a remotely exploitable vulnerability.
 
 #### How bad?
 
-If a vulnerable HTTP client, running in a server side process, makes an outgoing connection to an
-internal API, a remote, unauthenticated attacker may be able to
+If a vulnerable HTTP client makes an outgoing HTTP connection, while running in a server-side CGI application, an
+attacker may be able to:
 
-* Proxy (i.e. silently man-in-the-middle) outgoing HTTP sub-requests made by the server
+* Proxy the outgoing HTTP requests made by the web application
 * Direct the server to open outgoing connections to an address and port of their choosing
 * Tie up server resources by forcing the vulnerable software to use a malicious proxy (i.e.
 reverse slowloris) etc.
