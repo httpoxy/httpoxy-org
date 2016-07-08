@@ -5,21 +5,23 @@ set -ex
 git add -f _site
 
 git rm -r \
-  ci \
-  _config.yml \
-  css \
-  Gemfile \
-  Gemfile.lock \
-  img \
-  _includes \
-  index.md \
-  _layouts \
-  README.md \
-  _sass
+_includes \
+_layouts \
+_sass \
+ci \
+css \
+img \
+Gemfile \
+Gemfile.lock \
+_config.yml \
+index.md \
+README.md
+
+git config --local user.email admin+githubtravis@httpoxy.org
+git config --local user.name "Travis CI"
 
 git commit \
-  -m "Released at `date +%s`" \
-  --author="Travis CI <admin+githubtravis@httpoxy.org>"
+  -m "Released at `date +%s`"
 
 git checkout -B release
 git push -fu origin release:release
