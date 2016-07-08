@@ -13,9 +13,5 @@ install:
 script:
  - ./ci/build
 
-after_script:
- - git add -f _site
- - git rm -r ci _config.yml css Gemfile Gemfile.lock img _includes index.md _layouts README.md _sass
- - git commit -m "Released at `date +%s`"
- - git checkout -B release
- - git push -fu origin release:release
+after_success:
+ - ./ci/release
