@@ -35,3 +35,7 @@ h1, h2, h3, h4, h5, h6 {
 #content-container {
   border-right: 1px solid $gray-lighter;
 }
+
+#sidebar, #toc {
+  max-width: 285px;
+}
