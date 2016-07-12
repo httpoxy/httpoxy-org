@@ -64,8 +64,8 @@ commonly affected scenarios:
 
 * Whether you are vulnerable depends on your specific application code and PHP libraries, but the problem
   seems fairly widespread throughout the ecosystem (and poorly documented)
-    * So, this vulnerability affects any version of PHP!
-    * It may even affect exotic PHP variants because of how PHP's SAPI system works.
+    * So, this vulnerability affects any version of PHP
+    * It may even affect alternative PHP runtimes
 * It is present in Guzzle, Elastica, and probably many, many libraries
     * Guzzle versions after 4.0.0rc2 are vulnerable in all configurations we've tested
     * Elastica seems to be vulnerable under HHVM only
@@ -79,7 +79,8 @@ So, for example, if you are using a Drupal plugin that uses Guzzle 6, you are vu
 
 * Python code *must be deployed under CGI to be vulnerable*. Usually, that'll mean the vulnerable code
 uses the `wsgiref.handlers.CGIHandler` package
-  * Like with Go, actual CGI isn't considered a normal way of deploying Python web applications
+  * This is not considered a normal way of deploying Python webapps (most people are using WSGI or FastCGI, both of which are
+  not affected), so this will probably be much rarer than vulnerable PHP sites.
   * wsgi, for example, is not vulnerable, because os.environ is not polluted by CGI data
 * The 'requests' module will trust and use `os.environ['HTTP_PROXY']`
 
@@ -88,8 +89,8 @@ uses the `wsgiref.handlers.CGIHandler` package
 
 * Go code *must be deployed under CGI to be vulnerable*. Usually, that'll mean the vulnerable code uses
 the `net/http/cgi` package.
-  * This is not considered a usual way of deploying Go to serve HTTP, so this will probably be a much rarer
-  case of the vulnerability than PHP applications.
+  * As with Python, this is not considered a usual way of deploying Go to serve webapps, so this vulnerability should be
+  relatively rare.
   * Go's `fcgi` package, by comparison, doesn't set actual environment variables (and uses a goroutine to handle
   requests instead of PHP's entire process) it is *not* vulnerable
 * Vulnerable versions of `net/http` will trust and use `HTTP_PROXY` for outgoing requests, without checking
@@ -381,7 +382,9 @@ TODO: sign-off on final content
 
 
 
-<small>Page updated at 2016-07-09 03:09 UTC</small>
+<small>
+    Page updated at 2016-07-12 05:58 UTC
+</small>
 
 
 ## References
@@ -410,11 +413,3 @@ TODO: sign-off on final content
 [^nginx-ref]:
     The [nginx mailing list](https://forum.nginx.org/read.php?2,244407,244485#msg-244485) even had a PHP-specific
     explanation.
-
-*[PHP]: Popular programming language
-*[HTTP]: Hypertext transfer protocol
-*[CGI]: Common Gateway Interface: the common name for RFC 3875.
-{:.initialism}
-*[CGI-like]: For example, PHP's mod_php and fastcgi/php-fpm
-*[RFC 3875]: The standardized CGI protocol, published in 2003.
-{:.initialism}
