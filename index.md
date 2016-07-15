@@ -417,7 +417,7 @@ Dominic Scheirlinck and the httpoxy disclosure team
 
 
 <small>
-    Page updated at 2016-07-12 05:58 UTC
+    Page updated at 2016-07-15 06:35 UTC
 </small>
 
 
