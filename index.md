@@ -115,7 +115,7 @@ The best immediate mitigation is to block `Proxy` request headers before they hi
 * You can either strip the header or completely block requests attempting to use it.
 * You should try to do your mitigation as far "upstream" as you can (i.e. "at the edge", where HTTP requests first enter your system).
   That way, you can fix lots of vulnerable software at once (everything behind a reverse proxy that strips the `Proxy` header is safe!)
-* How you block Proxy headers depends on the specifics of your setup. You can block the header in many places, for example, at a
+* How you block `Proxy` headers depends on the specifics of your setup. You can block the header in many places, for example, at a
 web application firewall device, or directly on a webserver running Apache or Nginx.
 
 Here are a few of the more common mitigations:
@@ -371,10 +371,14 @@ So, the bug was lying dormant for years, like a latent infection: pox.
 ## CVEs    {#cve}
 {: .section}
 
-httpoxy has a number of CVEs assigned. These cover the cases where a language or CGI server makes the `Proxy` header available
-to an application in a way such that the application cannot tell whether it is a real environment variable or not. They also
-cover some cases where an application trusted the value of HTTP_PROXY by default (but only where that application should have been
-able to tell it came from a request.)
+httpoxy has a number of CVEs assigned. These cover the cases where
+
+* a language or CGI implementation makes the `Proxy` header available in such a way that the application cannot tell whether
+  it is a real environment variable, or
+* an application trusts the value of the `HTTP_PROXY` environment variable by default in a CGI environment (but only where that application should have been
+able to tell it came from a request)
+
+The assigned CVEs so far:
 
 * CVE-2016-5385: PHP
 * CVE-2016-5386: Go
