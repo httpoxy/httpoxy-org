@@ -105,9 +105,21 @@ if a CGI environment is present
 ## Immediate Mitigation {#fix-now}
 {: .section}
 
-The best immediate mitigation without patching libraries is to block `Proxy` request headers upstream of your application.
-There's no legitimate use for this header that we know of, so feel free.
-How you do so depends on your web or CGI server:
+The best immediate mitigation is to block `Proxy` request headers before they hit your application. This is easy and safe.
+{: .lead}
+
+* It's safe because the `Proxy` header is undefined by IANA, and isn't listed on the
+[registry of message headers](http://www.iana.org/assignments/message-headers/message-headers.xhtml). This means
+<strong>there is no standard use for the header at all</strong>; not even a provisional use-case.
+* Standards-compliant HTTP clients and servers will never read or send this header.
+* You can either strip the header or completely block requests attempting to use it.
+* You should try to do your mitigation as far "upstream" as you can (i.e. "at the edge", where HTTP requests first enter your system).
+  That way, you can fix lots of vulnerable software at once (everything behind a reverse proxy that strips the `Proxy` header is safe!)
+* How you block Proxy headers depends on the specifics of your setup. You can block the header in many places, for example, at a
+web application firewall device, or directly on a webserver running Apache or Nginx.
+
+Here are a few of the more common mitigations:
+
 
 ### Nginx/FastCGI {#mitigate-nginx}
 
@@ -394,15 +406,14 @@ could. We'd like to thank the members of:
   widespread vulnerabilities - if you're sitting on a Big One, they're a great resource to reach out to
 * The language and implementation teams, who kept to the disclosure timeline and provided lively discussion
 
-I've put together some more opinionated notes on httpoxy on my Medium account: TODO.
-
-For media enquiries, see [the media
-and licensing](media.html) page (TL;DR: [CC0](http://creativecommons.org/publicdomain/zero/1.0/), use what you like, no
+There's an [extra](extra.html) page with some meta-discussion on the whole named disclosure thing. The content on this
+page is licensed as [CC0](http://creativecommons.org/publicdomain/zero/1.0/) (TL;DR: use what you like, no
 permission/attribution necessary).
 
-TODO: sign-off on final content
+I've put together some more opinionated notes on httpoxy on my Medium account: TODO.
 
-
+Regards,<br />
+Dominic Scheirlinck and the httpoxy disclosure team
 
 
 <small>
