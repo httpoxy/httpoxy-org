@@ -2,10 +2,31 @@
 layout: plain
 ---
 
-## Press
+## Yet Another Named Disclosure
 
-We are available for comment at [contact@httpoxy.org](mailto:contact@httpoxy.org?subject=Press), or
-[@httpoxy](https://twitter.com/httpoxy) on Twitter.
+We think it's worthwhile to give a name to a vulnerability that's broadly spread throughout an ecosystem (in this case PHP),
+and poorly documented. Especially when its age shows it to be prone to reoccur.
+
+httpoxy has existed (and been known about)
+for a long time, yet new occurrences of the vulnerability were still being introduced as late as 2016. Indeed, we found a
+large number of feature requests for HTTP clients to _add_ the ability to read `HTTP_PROXY` in Github issues.
+
+Consider the fact that LWP, curl and Ruby teams all noticed at some point over the last 15
+years, yet thousands of applications remain vulnerable today. We can only think that's because their finding wasn't
+loudly and urgently transmitted to everyone else using CGI. So, we think this calls for a slightly "louder" fix.
+
+## Disclosure Research Team
+
+##### Vend
+* Dominic Scheirlinck
+* Richard Rowe
+* Morgan Pyne
+* Scott Geary
+
+##### Redhat
+* Kurt Seifried
+
+Thanks to everyone else who had suggestions and helped us prepare this site.
 
 ## Licensing
 
@@ -31,3 +52,8 @@ We are available for comment at [contact@httpoxy.org](mailto:contact@httpoxy.org
         </a>
     </div>
 </div>
+
+## Contact
+
+We are available for comment at [contact@httpoxy.org](mailto:contact@httpoxy.org?subject=Press), or
+[@httpoxy](https://twitter.com/httpoxy) on Twitter.
