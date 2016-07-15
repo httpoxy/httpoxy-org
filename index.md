@@ -386,14 +386,11 @@ The assigned CVEs so far:
 * CVE-2016-5388: Apache Tomcat
 
 We suspect there may be more CVEs coming for httpoxy, as less common software is checked over. If you
-need to get a CVE assigned for an httpoxy issue:
+want to get a CVE assigned for an httpoxy issue, there are a couple of options:
 
-  - For open source code, you can use the [Distributed Weakness Filing Project](https://distributedweaknessfiling.org/) (DWF).
-    They have way to report (public) issues using a simple form at [iwantacve.org](https://iwantacve.org/)
-  - For closed source code, you can talk to [MITRE, or one of their participating CNAs/vendors/coordinators](https://cve.mitre.org/cve/cna.html).
-
-
-
+  - For open source code projects, you can use the [Distributed Weakness Filing Project](https://distributedweaknessfiling.org/) (DWF).
+    They have a simple way to report (public) issues using the form at [iwantacve.org](https://iwantacve.org/)
+  - For closed source code projects, you can talk to [MITRE, or one of their participating CNAs/vendors/coordinators](https://cve.mitre.org/cve/cna.html).
 
 
 
