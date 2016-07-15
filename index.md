@@ -129,9 +129,7 @@ Use this to block the header from being passed on to PHP-FPM, PHP-PM etc.
 fastcgi_param HTTP_PROXY "";
 ```
 
-In FastCGI configurations, PHP and "[simple CGI](https://www.nginx.com/resources/wiki/start/topics/examples/simplecgi/)"
-are vulnerable (but many other languages that use Nginx FastCGI are not). There's no use for that header, though,
-so you _may as well block it anyway_.
+In FastCGI configurations, PHP is vulnerable (but many other languages that use Nginx FastCGI are not).
 
 ### Apache/mod_cgi {#mitigate-apache}
 
