@@ -12,5 +12,6 @@
 * [How It Works](#how-it-works)
 * [Why It Happened](#why)
 * [History of httpoxy](#history)
+* [CVEs](#cve)
 
 </div>

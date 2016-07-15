@@ -48,10 +48,8 @@ For example, the confirmed cases we've found so far:
 
 Language | Environment | HTTP client
 --- | --- | ---
-PHP | php-fpm |Guzzle >=4.0
-| mod_php |
-Python | wsgiref.handlers.CGIHandler | requests
-| twisted.web.twcgi.CGIScript |
+PHP | php-fpm <br /> mod_php | Guzzle 4+ <br /> Artax
+Python | wsgiref.handlers.CGIHandler <br /> twisted.web.twcgi.CGIScript | requests
 Go | net/http/cgi | net/http
 {: .table}
 
@@ -78,9 +76,9 @@ So, for example, if you are using a Drupal plugin that uses Guzzle 6, you are vu
 ### Python
 
 * Python code *must be deployed under CGI to be vulnerable*. Usually, that'll mean the vulnerable code
-uses the `wsgiref.handlers.CGIHandler` package
+will use a CGI handler like `wsgiref.handlers.CGIHandler`
   * This is not considered a normal way of deploying Python webapps (most people are using WSGI or FastCGI, both of which are
-  not affected), so this will probably be much rarer than vulnerable PHP sites.
+  not affected), so vulnerable Python applications will probably be much rarer than vulnerable PHP applications.
   * wsgi, for example, is not vulnerable, because os.environ is not polluted by CGI data
 * The 'requests' module will trust and use `os.environ['HTTP_PROXY']`
 
@@ -357,6 +355,31 @@ This bug was first discovered over 15 years ago. The timeline goes something lik
 </dl>
 
 So, the bug was lying dormant for years, like a latent infection: pox.
+
+
+
+## CVEs    {#cve}
+{: .section}
+
+httpoxy has a number of CVEs assigned. These cover the cases where a language or CGI server makes the `Proxy` header available
+to an application in a way such that the application cannot tell whether it is a real environment variable or not. They also
+cover some cases where an application trusted the value of HTTP_PROXY by default (but only where that application should have been
+able to tell it came from a request.)
+
+* CVE-2016-5385: PHP
+* CVE-2016-5386: Go
+* CVE-2016-5387: Apache HTTP Server
+* CVE-2016-5388: Apache Tomcat
+
+We suspect there may be more CVEs coming for httpoxy, as less common software is checked over. If you
+need to get a CVE assigned for an httpoxy issue:
+
+  - For open source code, you can use the [Distributed Weakness Filing Project](https://distributedweaknessfiling.org/) (DWF).
+    They have way to report (public) issues using a simple form at [iwantacve.org](https://iwantacve.org/)
+  - For closed source code, you can talk to [MITRE, or one of their participating CNAs/vendors/coordinators](https://cve.mitre.org/cve/cna.html).
+
+
+
 
 
 
