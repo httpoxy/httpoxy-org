@@ -14,7 +14,9 @@ This leads to a remotely exploitable vulnerability. If you're running PHP or CGI
 now. [Here's how.](#fix-now)
 {: .lead}
 
-#### What can happen if my application is vulnerable?
+httpoxy is a vulnerability for server-side web applications. If you're not deploying code, you don't need to worry.
+
+#### What can happen if my web application is vulnerable?
 
 If a vulnerable HTTP client makes an outgoing HTTP connection, while running in a server-side CGI application, an
 attacker may be able to:
