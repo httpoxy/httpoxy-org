@@ -25,12 +25,9 @@ attacker may be able to:
 * Direct the server to open outgoing connections to an address and port of their choosing
 * Tie up server resources by forcing the vulnerable software to use a malicious proxy
 
-If a server is vulnerable, it is extremely easy to exploit in basic form. And we expect security
-researchers to be able to scan for this vulnerability very easily and very quickly.
-
-Luckily, if you read on and find you are affected, [easy mitigations](#fix-now) are available.
-
-
+httpoxy is extremely easy to exploit in basic form. And we expect security
+researchers to be able to scan for it quickly. Luckily, if you read on and
+find you are affected, [easy mitigations](#fix-now) are available.
 
 
 
@@ -41,10 +38,11 @@ Luckily, if you read on and find you are affected, [easy mitigations](#fix-now) 
 ## What Is Affected {#affected-summary}
 {: .section}
 
-Two things are necessary to be vulnerable:
+A few things are necessary to be vulnerable:
 
 * Code running under a CGI-like context, where `HTTP_PROXY` becomes a real or emulated environment variable
-* An HTTP client that trusts `HTTP_PROXY`, and configures it as the proxy, used within a request handler
+* An HTTP client that trusts `HTTP_PROXY`, and configures it as the proxy
+* That client, used within a request handler, making an HTTP (as opposed to HTTPS) request
 
 For example, the confirmed cases we've found so far:
 
@@ -63,17 +61,16 @@ commonly affected scenarios:
 ### PHP
 
 * Whether you are vulnerable depends on your specific application code and PHP libraries, but the problem
-  seems fairly widespread throughout the ecosystem (and poorly documented)
-    * So, this vulnerability affects any version of PHP
-    * It may even affect alternative PHP runtimes
-* It is present in Guzzle, Elastica, and probably many, many libraries
-    * Guzzle versions after 4.0.0rc2 are vulnerable in all configurations we've tested
-    * Elastica seems to be vulnerable under HHVM only
+  seems fairly widespread
 * Just _using_ one of the vulnerable libraries, while processing a user's request, is exploitable.
+* If you're using a vulnerable library, this vulnerability will affect any version of PHP
+    * It even affects alternative PHP runtimes such as HHVM deployed under FastCGI
+* It is present in Guzzle, Artax, and probably many, many libraries
+    * Guzzle versions after 4.0.0rc2 are vulnerable, Guzzle 3 and below is not.
+    * Another example is in Composer's StreamContextBuilder utility class
 
-So, for example, if you are using a Drupal plugin that uses Guzzle 6, you are vulnerable to the request
-   that plugin makes being "httpoxied".
-
+So, for example, if you are using a Drupal plugin that uses Guzzle 6 and makes an outgoing HTTP request (for example,
+to check a weather API), you are vulnerable to the request that plugin makes being "httpoxied".
 
 ### Python
 
@@ -82,21 +79,16 @@ will use a CGI handler like `wsgiref.handlers.CGIHandler`
   * This is not considered a normal way of deploying Python webapps (most people are using WSGI or FastCGI, both of which are
   not affected), so vulnerable Python applications will probably be much rarer than vulnerable PHP applications.
   * wsgi, for example, is not vulnerable, because os.environ is not polluted by CGI data
-* The 'requests' module will trust and use `os.environ['HTTP_PROXY']`
-
+* Vulnerable versions of the requests library will trust and use `os.environ['HTTP_PROXY']`, without checking if CGI is in use
 
 ### Go
 
 * Go code *must be deployed under CGI to be vulnerable*. Usually, that'll mean the vulnerable code uses
 the `net/http/cgi` package.
-  * As with Python, this is not considered a usual way of deploying Go to serve webapps, so this vulnerability should be
-  relatively rare.
-  * Go's `fcgi` package, by comparison, doesn't set actual environment variables (and uses a goroutine to handle
-  requests instead of PHP's entire process) it is *not* vulnerable
-* Vulnerable versions of `net/http` will trust and use `HTTP_PROXY` for outgoing requests, without checking
-if a CGI environment is present
-
-
+  * As with Python, this is not considered a usual way of deploying Go as a web application, so this vulnerability should be
+  relatively rare
+  * Go's `net/http/fcgi` package, by comparison, does not set actual environment variables, so it is *not* vulnerable
+* Vulnerable versions of `net/http` will trust and use `HTTP_PROXY` for outgoing requests, without checking if CGI is in use
 
 
 
@@ -107,20 +99,23 @@ if a CGI environment is present
 ## Immediate Mitigation {#fix-now}
 {: .section}
 
-The best immediate mitigation is to block `Proxy` request headers before they hit your application. This is easy and safe.
+The best immediate mitigation is to block `Proxy` request headers as early as possible, and before they hit your
+application. This is easy and safe.
 {: .lead}
 
-* It's safe because the `Proxy` header is undefined by IANA, and isn't listed on the
-[registry of message headers](http://www.iana.org/assignments/message-headers/message-headers.xhtml). This means
+* It's safe because the `Proxy` header is undefined by the IETF, and isn't listed on the
+[IANA's registry of message headers](http://www.iana.org/assignments/message-headers/message-headers.xhtml). This means
 <strong>there is no standard use for the header at all</strong>; not even a provisional use-case.
 * Standards-compliant HTTP clients and servers will never read or send this header.
 * You can either strip the header or completely block requests attempting to use it.
-* You should try to do your mitigation as far "upstream" as you can (i.e. "at the edge", where HTTP requests first enter your system).
-  That way, you can fix lots of vulnerable software at once (everything behind a reverse proxy that strips the `Proxy` header is safe!)
-* How you block `Proxy` headers depends on the specifics of your setup. You can block the header in many places, for example, at a
-web application firewall device, or directly on a webserver running Apache or Nginx.
+* You should try to do your mitigation as *early* and as far *upstream* as you can.
+    * Do it "at the edge", where HTTP requests first enter your system.
+    * That way, you can fix lots of vulnerable software at once.
+    * Everything behind a reverse proxy or application firewall that strips the `Proxy` header is safe!
 
-Here are a few of the more common mitigations:
+How you block a `Proxy` header depends on the specifics of your setup. The earliest convenient place to block the header
+might be at a web application firewall device, or directly on the webserver running Apache or Nginx. Here are a few of
+the more common mitigations:
 
 
 ### Nginx/FastCGI {#mitigate-nginx}
@@ -193,7 +188,7 @@ Update your `apphost.config` with the following rule:
 
 Please let us know of other places where httpoxy is found. We'd be happy to help you communicate fixes for your platform,
 server or library if you are affected. Contact [contact@httpoxy.org](mailto:contact@httpoxy.org?subject=Fix) or
-[@httpoxy](https://twitter.com/httpoxy) to let us know. Or make a PR against the httpoxy-org repo. TODO
+[@httpoxy](https://twitter.com/httpoxy) to let us know. Or make a PR against the [httpoxy-org repo](https://github.com/httpoxy/httpoxy-org).
 
 
 
@@ -235,21 +230,34 @@ Userland PHP fixes don't work. Don't bother:
       >  The `REQUEST_METHOD` meta-variable MUST be set to the method which should be used by the script to process the request
       > </p>
 
-To put it plainly: there is no way to trust the value of an HTTP_ env var in a CGI environment. They cannot be
-distinguished from request headers, in any way. So, _any_ usage of `HTTP_PROXY` in a CGI context is suspicious.
+### Don't Trust `HTTP_PROXY` Under CGI
+
+To put it plainly: there is no way to trust the value of an `HTTP_` env var in a CGI environment. They cannot be
+distinguished from request headers according to the specification. So, _any_ usage of `HTTP_PROXY` in a CGI context is
+suspicious.
 
 If you need to configure the proxy of a CGI application via an environment variable, use a variable name that will
 never conflict with request headers. That is: one that does not begin with `HTTP_`. We strongly recommend you go for
-`CGI_HTTP_PROXY`.
+`CGI_HTTP_PROXY`. (As seen in Ruby and libwww-perl's mitigations for this issue.)
 
-#### PHP {#prevent-php}
+### PHP {#prevent-php}
 
 CLI-only code may safely trust `$_SERVER['HTTP_PROXY']` or `getenv('HTTP_PROXY')`. But bear in mind that code written
 for the CLI context often ends up running in a SAPI eventually, particularly utility or library code. And, with open
 source code, that might not even be your doing. So, if you are going to rely on `HTTP_PROXY` at all, you should guard
 that code with a check of the `PHP_SAPI` constant.
 
+### Network Configuration as Prevention
 
+A defense-in-depth strategy that can combat httpoxy (and entire classes of other security problems) is to severely restrict
+the outgoing requests your web application can make to an absolute minimum. For example, if a web application is
+firewalled in such a way that it *cannot* make outgoing HTTP requests, an attacker will not be able to receive
+the "misproxied" requests (because the web application is prevented from connecting to the attacker).
+
+### HTTPS
+
+And, of course, another defense-in-depth strategy that works is to use HTTPS for internal requests, not just for
+securing your site's connections to the outside world. Those aren't affected by `HTTP_PROXY`.
 
 
 
@@ -306,7 +314,7 @@ cgi.Serve(
 ```
 
 More complete PoC repos (using Docker, and testing with an actual listener for the proxied request) have been prepared
-under the httpoxy Github organization. TODO
+under the [httpoxy Github organization](https://github.com/httpoxy).
 
 
 
@@ -317,11 +325,10 @@ under the httpoxy Github organization. TODO
 {: .section}
 
 Under the CGI spec, headers are provided mixed into the environment variables. (These are formally known as
-"Protocol-Specific Meta-Variables"[^meta-variables]).
+"Protocol-Specific Meta-Variables"[^meta-variables]). That's just the way the spec works, not a failure or bug.
 
-The task being completed in most of the vulnerabilities is:
-configure a proxy for
-the internal (to the web application) HTTP request made shortly after. The same task in Ruby could be completed by
+The goal of the code, in most of the vulnerabilities, is to find the correct proxy to use, when auto-configuring a
+client for the internal  HTTP request made shortly after. This task in Ruby could be completed by
 the `find_proxy` method of `URI::Generic`, which notes:
 
 > <p class="m-b-0" markdown="1">
@@ -374,7 +381,9 @@ This bug was first discovered over 15 years ago. The timeline goes something lik
  </dd>
 </dl>
 
-So, the bug was lying dormant for years, like a latent infection: pox.
+So, the bug was lying dormant for years, like a latent infection: pox. We imagine that many people may have found the issue over
+the years, but never investigated its scope in other languages and libraries. If you've found a historical discussion
+of interest that we've missed, let us know.
 
 
 
@@ -408,16 +417,19 @@ want to get a CVE assigned for an httpoxy issue, there are a couple of options:
 ## Thanks and Further Coverage
 {: .section}
 
+
+
 Over the past two weeks, the Vend security team worked to disclose the issue responsibly to as many affected parties as we
 could. We'd like to thank the members of:
 
-* The Red Hat Security Response Team, who provided extremely helpful advice and access to their experience disclosing
-  widespread vulnerabilities - if you're sitting on a Big One, they're a great resource to reach out to
-* The language and implementation teams, who kept to the disclosure timeline and provided lively discussion
+* The Red Hat Product Security team, who provided extremely useful advice and access to their experience disclosing
+  widespread vulnerabilities - if you're sitting on a big or complicated disclosure, they're a great resource to reach
+  out to for help.
+* The language and implementation teams, who kept to disclosure norms and provided lively discussion.
 
-There's an [extra](extra.html) page with some meta-discussion on the whole named disclosure thing. The content on this
-page is licensed as [CC0](http://creativecommons.org/publicdomain/zero/1.0/) (TL;DR: use what you like, no
-permission/attribution necessary).
+There's an [extra](extra.html) page with some meta-discussion on the whole named disclosure thing and contact details.
+The content on this page is licensed as [CC0](http://creativecommons.org/publicdomain/zero/1.0/) (TL;DR: use what you
+like, no permission/attribution necessary).
 
 I've put together some more opinionated notes on httpoxy on my Medium account: TODO.
 
@@ -426,7 +438,7 @@ Dominic Scheirlinck and the httpoxy disclosure team
 
 
 <small>
-    Page updated at 2016-07-15 06:35 UTC
+    Page updated at 2016-07-17 05:36 UTC
 </small>
 
 
