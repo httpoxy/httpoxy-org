@@ -133,13 +133,18 @@ fastcgi_param HTTP_PROXY "";
 
 In FastCGI configurations, PHP is vulnerable (but many other languages that use Nginx FastCGI are not).
 
-### Apache/mod_cgi {#mitigate-apache}
+### Apache {#mitigate-apache}
 
-In this configuration, languages like Go and Python may be vulnerable (the `HTTP_PROXY` env var is "real"). If you are
-using **mod_headers**, you can unset the Proxy header with this directive:
+For specific Apache coverage (and details for other Apache software projects like Tomcat), we strongly recommend
+you read the [Apache Software Foundation's official advisory](https://www.apache.org/security/asf-httpoxy-response.txt) on
+the matter. The very basic mitigation information you'll find below is covered in much greater depth there.
+
+If you're using Apache HTTP Server with `mod_cgi`, languages like Go and Python may be vulnerable (the `HTTP_PROXY` env var
+is "real"). And `mod_php` is affected due to the nature of PHP. If you are using **mod_headers**, you can unset the
+`Proxy` header before further processing with this directive:
 
 ```
-RequestHeader unset Proxy
+RequestHeader unset Proxy early
 ```
 
 If you are using **mod_security**, you can use a `SecRule` to deny traffic with a `Proxy` header. Here's an example,
@@ -148,6 +153,9 @@ vary the action to taste, and make sure `SecRuleEngine` is on. The 1000005 ID ha
 ```
 SecRule &REQUEST_HEADERS:Proxy "@gt 0" "id:1000005,log,deny,msg:'httpoxy denied'"
 ```
+
+Finally, if you're using Apache Traffic Server, it's not affected, but you can use it to strip the Proxy header; very helpful
+for any services sitting behind it. Again, see the [ASF's guidance](https://www.apache.org/security/asf-httpoxy-response.txt).
 
 ### HAProxy {#mitigate-haproxy}
 
