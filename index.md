@@ -160,6 +160,18 @@ This will strip the header off requests:
 http-request del-header Proxy
 ```
 
+### Varnish {#mitigate-varnish}
+
+For Varnish, the following should unset the header. Add it to the pre-existing vcl_recv section:
+
+```
+sub vcl_recv {
+    [...]
+    unset req.http.proxy;
+    [...]
+}
+```
+
 ### Microsoft IIS with PHP or a CGI framework {#mitigate-iis}
 
 httpoxy does not affect any Microsoft Web Frameworks, e.g. not ASP.NET nor Active Server Pages. But if you have
