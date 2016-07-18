@@ -1,8 +1,7 @@
 title: httpoxy
 email: contact@httpoxy.org
 description: >
-  httpoxy is a vulnerability due to be disclosed in July 2016, affecting
-  web applications.
+  httpoxy is a vulnerability in PHP and CGI web applications that allows remote attackers to proxy requests
 baseurl: ""
 url: "https://httpoxy.org"
 
