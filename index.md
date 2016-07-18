@@ -425,7 +425,9 @@ want to get a CVE assigned for an httpoxy issue, there are a couple of options:
 
 We'll be linking to official announcements from affected teams here, as they become available.
 
+* [The CERT vulnerability note - VU#797896](https://www.kb.cert.org/vuls/id/797896)
 * [The Apache Software Foundation advisory](https://www.apache.org/security/asf-httpoxy-response.txt)
+* [Drupal advisory](https://www.drupal.org/PSA-2016-002)
 
 Over the past two weeks, the Vend security team worked to disclose the issue responsibly to as many affected parties as we
 could. We'd like to thank the members of:
