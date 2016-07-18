@@ -178,7 +178,7 @@ httpoxy does not affect any Microsoft Web Frameworks, e.g. not ASP.NET nor Activ
 installed PHP or any other third party framework on top of IIS, we recommend applying mitigation steps to protect from
 httpoxy attacks.
 
-Update your `apphost.config` with the following rule:
+Update your `ApplicationHost.config` with the following rule:
 
 ```xml
 <system.webServer>
@@ -195,6 +195,9 @@ Update your `apphost.config` with the following rule:
     </rewrite>
 </system.webServer>
 ```
+
+You may want to use `<globalRules>` instead of `<rules>` - see the
+[IIS documentation on rewrite rule scope](http://www.iis.net/learn/extensions/url-rewrite-module/url-rewrite-module-configuration-reference#Rewrite_Rules_Scope).
 
 ### Other CGI software and applications
 
@@ -463,7 +466,7 @@ Dominic Scheirlinck and the httpoxy disclosure team
 
 
 <small>
-    Page updated at 2016-07-18 16:26 UTC
+    Page updated at 2016-07-18 17:34 UTC
 </small>
 
 
