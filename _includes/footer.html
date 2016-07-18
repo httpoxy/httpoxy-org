@@ -3,7 +3,7 @@
         crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-    if (!!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)) {
+    if (!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)) {
         $(window).scroll(function() {
             if ($(window).scrollTop() >= 306) {
                 $('#toc').addClass('fixed');
