@@ -12,7 +12,8 @@ exclude:
   - ci/
   - vendor/
   - Gemfile
-  - Gemfile.lockv
+  - Gemfile.lock
+  - README.md
 
 gems:
   - jekyll-assets
