@@ -1,0 +1,22 @@
+#!/bin/bash -x
+
+if [ -z $BUCKET ]; then
+  BUCKET=httpoxy-test         # 'real' bucket is just httpoxy
+fi
+
+if [ -z $DISTRIBUTION ]; then
+  DISTRIBUTION=E1K52FAL2II0OL
+fi
+
+set -e
+
+echo "Uploading site to bucket..."
+cd _site
+aws s3 cp . s3://$BUCKET/ --recursive
+echo "done."
+
+echo "Invalidating cloudflare distribution"
+aws configure set preview.cloudfront true
+aws cloudfront create-invalidation \
+  --distribution-id $DISTRIBUTION \
+  --paths '/*'
