@@ -438,7 +438,9 @@ want to get a CVE assigned for an httpoxy issue, there are a couple of options:
 We'll be linking to official announcements from affected teams here, as they become available.
 
 * [The CERT vulnerability note - VU#797896](https://www.kb.cert.org/vuls/id/797896)
+* [Red Hat advisory](https://access.redhat.com/security/vulnerabilities/httpoxy)
 * [The Apache Software Foundation advisory](https://www.apache.org/security/asf-httpoxy-response.txt)
+* [nginx blog post](https://www.nginx.com/blog/mitigating-the-httpoxy-vulnerability-with-nginx/)
 * [Drupal advisory](https://www.drupal.org/PSA-2016-002)
 * [Cloudflare sites protected from httpoxy](https://blog.cloudflare.com/cloudflare-sites-protected-from-httpoxy/)
 
@@ -461,7 +463,7 @@ Dominic Scheirlinck and the httpoxy disclosure team
 
 
 <small>
-    Page updated at 2016-07-18 15:15 UTC
+    Page updated at 2016-07-18 16:26 UTC
 </small>
 
 
