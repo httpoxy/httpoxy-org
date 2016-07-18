@@ -23,7 +23,7 @@ loudly and urgently transmitted to everyone else using CGI. So, we think this ca
 * Morgan Pyne
 * Scott Geary
 
-##### Redhat
+##### Red Hat Product Security
 * Kurt Seifried
 
 Thanks to everyone else who had suggestions and helped us prepare this site.
