@@ -374,6 +374,10 @@ This bug was first discovered over 15 years ago. The timeline goes something lik
   The issue is mentioned on the nginx mailing list. The user humbly points out the issue: "unless
      I'm missing something, which is very possible". No, Jonathan Matthews, you were exactly right! [^nginx-ref]
  </dd>
+ <dt class="col-sm-3">February 2015</dt>
+ <dd class="col-sm-9" markdown="1">
+   The issue is mentioned on the Apache httpd-dev mailing list. Spotted by Stefan Fritsch. [^apache-ref]
+  </dd>
  <dt class="col-sm-3">July 2016</dt>
  <dd class="col-sm-9" markdown="1">
   Scott Geary, an engineer at Vend, found an instance of the bug in the wild. The Vend security team found the vulnerability
@@ -403,6 +407,8 @@ The assigned CVEs so far:
 * CVE-2016-5386: Go
 * CVE-2016-5387: Apache HTTP Server
 * CVE-2016-5388: Apache Tomcat
+* CVE-2016-1000109: HHVM
+* CVE-2016-1000110: Python
 
 We suspect there may be more CVEs coming for httpoxy, as less common software is checked over. If you
 want to get a CVE assigned for an httpoxy issue, there are a couple of options:
@@ -470,3 +476,6 @@ Dominic Scheirlinck and the httpoxy disclosure team
 [^nginx-ref]:
     The [nginx mailing list](https://forum.nginx.org/read.php?2,244407,244485#msg-244485) even had a PHP-specific
     explanation.
+
+[^apache-ref]:
+    [Discussed](http://mail-archives.apache.org/mod_mbox/httpd-dev/201502.mbox/%3C2651807.jIIY3NPtlf@k%3E) in reference to CGI specifically.
