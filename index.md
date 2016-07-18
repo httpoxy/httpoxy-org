@@ -69,7 +69,7 @@ commonly affected scenarios:
     * Guzzle versions after 4.0.0rc2 are vulnerable, Guzzle 3 and below is not.
     * Another example is in Composer's StreamContextBuilder utility class
 
-So, for example, if you are using a Drupal plugin that uses Guzzle 6 and makes an outgoing HTTP request (for example,
+So, for example, if you are using a Drupal module that uses Guzzle 6 and makes an outgoing HTTP request (for example,
 to check a weather API), you are vulnerable to the request that plugin makes being "httpoxied".
 
 ### Python
