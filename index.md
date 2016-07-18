@@ -182,6 +182,17 @@ http protocol httpfilter {
 }
 ```
 
+### lighttpd {#mitigate-lighttpd}
+
+We don't know of a great mitigation for lighttpd (let us know if you have a better one). This will add an additional
+Proxy header to requests. That may cause outgoing requests to fail.
+
+```
+setenv.add-request-header = (
+"Proxy" => "invalid",
+)
+```
+
 ### Microsoft IIS with PHP or a CGI framework {#mitigate-iis}
 
 For detailed information about mitigating httpoxy on IIS, you should
