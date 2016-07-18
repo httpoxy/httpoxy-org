@@ -172,6 +172,16 @@ sub vcl_recv {
 }
 ```
 
+### OpenBSD relayd {#mitigate-relayd}
+
+For relayd, the following should remove the header. Add it to a pre-existing filter:
+
+```
+http protocol httpfilter {
+        match request header remove "Proxy"
+}
+```
+
 ### Microsoft IIS with PHP or a CGI framework {#mitigate-iis}
 
 httpoxy does not affect any Microsoft Web Frameworks, e.g. not ASP.NET nor Active Server Pages. But if you have
