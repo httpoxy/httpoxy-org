@@ -444,7 +444,7 @@ We'll be linking to official announcements from affected teams here, as they bec
 * [Red Hat advisory](https://access.redhat.com/security/vulnerabilities/httpoxy)
 * [The Apache Software Foundation advisory](https://www.apache.org/security/asf-httpoxy-response.txt)
 * [nginx blog post](https://www.nginx.com/blog/mitigating-the-httpoxy-vulnerability-with-nginx/)
-* [Drupal advisory](https://www.drupal.org/PSA-2016-002)
+* [Drupal advisory](https://www.drupal.org/SA-CORE-2016-003)
 * [Fastly advisory]( https://www.fastly.com/security-advisories/vulnerability-use-httpproxy-cgi)
 * [Cloudflare blog post](https://blog.cloudflare.com/cloudflare-sites-protected-from-httpoxy/)
 * [Akamai blog post](https://blogs.akamai.com/2016/07/akamai-mitigates-httpoxy-vulnerability.html)
