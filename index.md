@@ -417,7 +417,9 @@ want to get a CVE assigned for an httpoxy issue, there are a couple of options:
 ## Thanks and Further Coverage
 {: .section}
 
+We'll be linking to official announcements from affected teams here, as they become available.
 
+* [The Apache Software Foundation advisory](https://www.apache.org/security/asf-httpoxy-response.txt)
 
 Over the past two weeks, the Vend security team worked to disclose the issue responsibly to as many affected parties as we
 could. We'd like to thank the members of:
@@ -431,14 +433,14 @@ There's an [extra](extra.html) page with some meta-discussion on the whole named
 The content on this page is licensed as [CC0](http://creativecommons.org/publicdomain/zero/1.0/) (TL;DR: use what you
 like, no permission/attribution necessary).
 
-I've put together some more opinionated notes on httpoxy on my Medium account: TODO.
+I've put together some more opinionated notes on httpoxy on [my Medium account](https://medium.com/@nzdominic).
 
 Regards,<br />
 Dominic Scheirlinck and the httpoxy disclosure team
 
 
 <small>
-    Page updated at 2016-07-17 05:36 UTC
+    Page updated at 2016-07-18 00:34 UTC
 </small>
 
 
