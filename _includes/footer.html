@@ -3,11 +3,13 @@
         crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-    $(window).scroll(function() {
-        if ($(window).scrollTop() >= 306) {
-            $('#toc').addClass('fixed');
-        } else {
-            $('#toc').removeClass('fixed');
-        }
-    });
+    if (!!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)) {
+        $(window).scroll(function() {
+            if ($(window).scrollTop() >= 306) {
+                $('#toc').addClass('fixed');
+            } else {
+                $('#toc').removeClass('fixed');
+            }
+        });
+    }
 </script>
