@@ -445,7 +445,9 @@ We'll be linking to official announcements from affected teams here, as they bec
 * [The Apache Software Foundation advisory](https://www.apache.org/security/asf-httpoxy-response.txt)
 * [nginx blog post](https://www.nginx.com/blog/mitigating-the-httpoxy-vulnerability-with-nginx/)
 * [Drupal advisory](https://www.drupal.org/PSA-2016-002)
-* [Cloudflare sites protected from httpoxy](https://blog.cloudflare.com/cloudflare-sites-protected-from-httpoxy/)
+* [Fastly advisory]( https://www.fastly.com/security-advisories/vulnerability-use-httpproxy-cgi)
+* [Cloudflare blog post](https://blog.cloudflare.com/cloudflare-sites-protected-from-httpoxy/)
+* [Akamai blog post](https://blogs.akamai.com/2016/07/akamai-mitigates-httpoxy-vulnerability.html)
 
 Over the past two weeks, the Vend security team worked to disclose the issue responsibly to as many affected parties as we
 could. We'd like to thank the members of:
@@ -466,7 +468,7 @@ Dominic Scheirlinck and the httpoxy disclosure team
 
 
 <small>
-    Page updated at 2016-07-18 17:34 UTC
+    Page updated at 2016-07-18 17:40 UTC
 </small>
 
 
