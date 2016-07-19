@@ -142,7 +142,7 @@ is "real"). And `mod_php` is affected due to the nature of PHP. If you are using
 RequestHeader unset Proxy early
 ```
 
-Example for using this in `.htaccess` files:`
+Example for using this in `.htaccess` files:
 
 ```
 <IfModule mod_headers.c>
