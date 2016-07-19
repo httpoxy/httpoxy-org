@@ -128,7 +128,9 @@ fastcgi_param HTTP_PROXY "";
 
 In FastCGI configurations, PHP is vulnerable (but many other languages that use NGINX FastCGI are not).
 
-For specific NGINX coverage, we recommend that you read the official [NGINX blog post](https://www.nginx.com/blog/mitigating-the-httpoxy-vulnerability-with-nginx) on this vulnerability. The blog post provides a graphic depiction of how HTTPoxy works and more extensive mitigation information for NGINX.
+For specific NGINX coverage, we recommend that you read the official [NGINX blog post](https://www.nginx.com/blog/mitigating-the-httpoxy-vulnerability-with-nginx)
+on this vulnerability. The blog post provides a graphic depiction of how
+httpoxy works and more extensive mitigation information for NGINX.
 
 ### Apache {#mitigate-apache}
 
@@ -541,7 +543,7 @@ Dominic Scheirlinck and the httpoxy disclosure team
 
 
 <small>
-    Page updated at 2016-07-19 09:52 UTC
+    Page updated at 2016-07-19 22:35 UTC
 </small>
 
 
