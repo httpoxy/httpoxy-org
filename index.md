@@ -142,6 +142,14 @@ is "real"). And `mod_php` is affected due to the nature of PHP. If you are using
 RequestHeader unset Proxy early
 ```
 
+Example for using this in `.htaccess` files:`
+
+```
+<IfModule mod_headers.c>
+   RequestHeader unset Proxy
+</IfModule>
+```
+
 If you are using **mod_security**, you can use a `SecRule` to deny traffic with a `Proxy` header. Here's an example,
 vary the action to taste, and make sure `SecRuleEngine` is on. The 1000005 ID has been assigned to this issue.
 
