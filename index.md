@@ -248,6 +248,19 @@ To _clear_ the value of the header, use the following URL Rewrite rule:
 
 **Note:** URL Rewrite is a downloadable add-in for IIS and is not included in a default IIS installation.
 
+### Hiawatha
+
+You can block any request containing a Proxy header (or ban the sending client) via the UrlToolkit:
+
+```
+UrlToolkit {
+  ToolkitID = block_httpoxy
+  Header Proxy .* DenyAccess
+}
+```
+
+Via this [hiawatha-webserver.org blog post](https://www.hiawatha-webserver.org/weblog/115)
+
 ### Other CGI software and applications
 
 Please let us know of other places where httpoxy is found. We'd be happy to help you communicate fixes for your platform,
@@ -518,7 +531,7 @@ Dominic Scheirlinck and the httpoxy disclosure team
 
 
 <small>
-    Page updated at 2016-07-19 06:35 UTC
+    Page updated at 2016-07-19 09:47 UTC
 </small>
 
 
