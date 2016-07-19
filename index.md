@@ -184,11 +184,24 @@ http protocol httpfilter {
 
 ### Microsoft IIS with PHP or a CGI framework {#mitigate-iis}
 
-httpoxy does not affect any Microsoft Web Frameworks, e.g. not ASP.NET nor Active Server Pages. But if you have
-installed PHP or any other third party framework on top of IIS, we recommend applying mitigation steps to protect from
-httpoxy attacks.
+For detailed information about mitigating httpoxy on IIS, you should
+head to the official [Microsoft article KB3179800](https://support.microsoft.com/en-us/kb/3179800), which covers
+the below mitigations in greater detail.
 
-Update your `ApplicationHost.config` with the following rule:
+Also important to know: httpoxy does not affect any Microsoft Web Frameworks, e.g. not ASP.NET nor Active Server Pages.
+But if you have installed PHP or any other third party framework on top of IIS, we recommend applying mitigation steps
+to protect from httpoxy attacks. You can either block requests containing a Proxy header, or clear the header. (The header
+is safe to block, because browsers will not generally send it at all).
+
+To _block_ requests that contain a Proxy header (the preferred solution), run the following command line.
+
+```
+appcmd set config /section:requestfiltering /+requestlimits.headerLimits.[header='proxy',sizelimit='0']
+```
+
+**Note:** `appcmd.exe` is not typically in the path and can be found in the `%systemroot%\system32\inetsrv` directory
+
+To _clear_ the value of the header, use the following URL Rewrite rule:
 
 ```xml
 <system.webServer>
@@ -206,8 +219,7 @@ Update your `ApplicationHost.config` with the following rule:
 </system.webServer>
 ```
 
-You may want to use `<globalRules>` instead of `<rules>` - see the
-[IIS documentation on rewrite rule scope](http://www.iis.net/learn/extensions/url-rewrite-module/url-rewrite-module-configuration-reference#Rewrite_Rules_Scope).
+**Note:** URL Rewrite is a downloadable add-in for IIS and is not included in a default IIS installation.
 
 ### Other CGI software and applications
 
@@ -453,6 +465,7 @@ We'll be linking to official announcements from affected teams here, as they bec
 * [The CERT vulnerability note - VU#797896](https://www.kb.cert.org/vuls/id/797896)
 * [Red Hat advisory](https://access.redhat.com/security/vulnerabilities/httpoxy)
 * [The Apache Software Foundation advisory](https://www.apache.org/security/asf-httpoxy-response.txt)
+* [Microsoft advisory KB3179800](https://support.microsoft.com/en-us/kb/3179800)
 * [nginx blog post](https://www.nginx.com/blog/mitigating-the-httpoxy-vulnerability-with-nginx/)
 * [Drupal advisory](https://www.drupal.org/SA-CORE-2016-003)
 * [Fastly advisory]( https://www.fastly.com/security-advisories/vulnerability-use-httpproxy-cgi)
