@@ -184,13 +184,29 @@ http protocol httpfilter {
 
 ### lighttpd {#mitigate-lighttpd}
 
-We don't know of a great mitigation for lighttpd (let us know if you have a better one). This will add an additional
-Proxy header to requests. That may cause outgoing requests to fail.
+#### <= 1.4.40
+
+To reject requests containing a `Proxy` header
+
+* Create `/path/to/deny-proxy.lua`, read-only to lighttpd, with the content:
+
+  ```
+  if (lighty.request["Proxy"] == nil) then return 0 else return 403 end
+  ```
+
+* Modify `lighttpd.conf` to load `mod_magnet` and run the above lua code:
+
+  ```
+  server.modules += ( "mod_magnet" )
+  magnet.attract-raw-url-to = ( "/path/to/deny-proxy.lua" )
+  ```
+
+#### lighttpd2 (development)
+
+To strip the `Proxy` header from the request, add the following to `lighttpd.conf`:
 
 ```
-setenv.add-request-header = (
-"Proxy" => "invalid",
-)
+req_header.remove "Proxy";
 ```
 
 ### Microsoft IIS with PHP or a CGI framework {#mitigate-iis}
@@ -502,7 +518,7 @@ Dominic Scheirlinck and the httpoxy disclosure team
 
 
 <small>
-    Page updated at 2016-07-19 00:55 UTC
+    Page updated at 2016-07-19 06:35 UTC
 </small>
 
 
