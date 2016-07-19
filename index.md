@@ -114,11 +114,11 @@ application. This is easy and safe.
     * Everything behind a reverse proxy or application firewall that strips the `Proxy` header is safe!
 
 How you block a `Proxy` header depends on the specifics of your setup. The earliest convenient place to block the header
-might be at a web application firewall device, or directly on the webserver running Apache or Nginx. Here are a few of
+might be at a web application firewall device, or directly on the webserver running Apache or NGINX. Here are a few of
 the more common mitigations:
 
 
-### Nginx/FastCGI {#mitigate-nginx}
+### NGINX/FastCGI {#mitigate-nginx}
 
 Use this to block the header from being passed on to PHP-FPM, PHP-PM etc.
 
@@ -126,7 +126,9 @@ Use this to block the header from being passed on to PHP-FPM, PHP-PM etc.
 fastcgi_param HTTP_PROXY "";
 ```
 
-In FastCGI configurations, PHP is vulnerable (but many other languages that use Nginx FastCGI are not).
+In FastCGI configurations, PHP is vulnerable (but many other languages that use NGINX FastCGI are not).
+
+For specific NGINX coverage, we recommend that you read the official [NGINX blog post](https://www.nginx.com/blog/mitigating-the-httpoxy-vulnerability-with-nginx) on this vulnerability. The blog post provides a graphic depiction of how HTTPoxy works and more extensive mitigation information for NGINX.
 
 ### Apache {#mitigate-apache}
 
@@ -456,7 +458,7 @@ This bug was first discovered over 15 years ago. The timeline goes something lik
  </dd>
  <dt class="col-sm-3">November 2013</dt>
  <dd class="col-sm-9" markdown="1">
-  The issue is mentioned on the nginx mailing list. The user humbly points out the issue: "unless
+  The issue is mentioned on the NGINX mailing list. The user humbly points out the issue: "unless
      I'm missing something, which is very possible". No, Jonathan Matthews, you were exactly right! [^nginx-ref]
  </dd>
  <dt class="col-sm-3">February 2015</dt>
@@ -514,7 +516,7 @@ We'll be linking to official announcements from affected teams here, as they bec
 * [Red Hat advisory](https://access.redhat.com/security/vulnerabilities/httpoxy)
 * [The Apache Software Foundation advisory](https://www.apache.org/security/asf-httpoxy-response.txt)
 * [Microsoft advisory KB3179800](https://support.microsoft.com/en-us/kb/3179800)
-* [nginx blog post](https://www.nginx.com/blog/mitigating-the-httpoxy-vulnerability-with-nginx/)
+* [NGINX blog post](https://www.nginx.com/blog/mitigating-the-httpoxy-vulnerability-with-nginx/)
 * [Drupal advisory](https://www.drupal.org/SA-CORE-2016-003)
 * [Fastly advisory]( https://www.fastly.com/security-advisories/vulnerability-use-httpproxy-cgi)
 * [Cloudflare blog post](https://blog.cloudflare.com/cloudflare-sites-protected-from-httpoxy/)
@@ -567,7 +569,7 @@ Dominic Scheirlinck and the httpoxy disclosure team
     case-insensitive environment variables.
 
 [^nginx-ref]:
-    The [nginx mailing list](https://forum.nginx.org/read.php?2,244407,244485#msg-244485) even had a PHP-specific
+    The [NGINX mailing list](https://forum.nginx.org/read.php?2,244407,244485#msg-244485) even had a PHP-specific
     explanation.
 
 [^apache-ref]:
