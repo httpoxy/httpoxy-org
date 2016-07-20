@@ -271,7 +271,19 @@ UrlToolkit {
 }
 ```
 
-Via this [hiawatha-webserver.org blog post](https://www.hiawatha-webserver.org/weblog/115)
+See more information at the [hiawatha blog](https://www.hiawatha-webserver.org/weblog/115)
+
+### LiteSpeed Web Server
+
+Upgrade to `>= 5.0.19` or `>= 5.1.7` to mitigate. You can do this manually with one of these commands, or you'll get
+an upgrade notification soon.
+
+```sh
+/usr/local/lsws/admin/misc/lsup.sh -v 5.0.19 # or
+/usr/local/lsws/admin/misc/lsup.sh -v 5.1.7
+```
+
+See more information at the [litespeed blog](http://blog.litespeedtech.com/2016/07/18/the-httpoxy-vulnerability-has-been-taken-care-of-by-litespeed-automatically/)
 
 ### Other CGI software and applications
 
@@ -523,6 +535,7 @@ We'll be linking to official announcements from affected teams here, as they bec
 * [Fastly advisory]( https://www.fastly.com/security-advisories/vulnerability-use-httpproxy-cgi)
 * [Cloudflare blog post](https://blog.cloudflare.com/cloudflare-sites-protected-from-httpoxy/)
 * [Akamai blog post](https://blogs.akamai.com/2016/07/akamai-mitigates-httpoxy-vulnerability.html)
+* [LiteSpeed blog post](http://blog.litespeedtech.com/2016/07/18/the-httpoxy-vulnerability-has-been-taken-care-of-by-litespeed-automatically/)
 
 Over the past two weeks, the Vend security team worked to disclose the issue responsibly to as many affected parties as we
 could. We'd like to thank the members of:
