@@ -161,8 +161,23 @@ vary the action to taste, and make sure `SecRuleEngine` is on. The 1000005 ID ha
 SecRule &REQUEST_HEADERS:Proxy "@gt 0" "id:1000005,log,deny,msg:'httpoxy denied'"
 ```
 
-Finally, if you're using Apache Traffic Server, it's not affected, but you can use it to strip the Proxy header; very helpful
-for any services sitting behind it. Again, see the [ASF's guidance](https://www.apache.org/security/asf-httpoxy-response.txt).
+Finally, if you're using Apache Traffic Server, it's not itself affected, but you can use it to strip the `Proxy` header; very helpful
+for any services sitting behind it. Again, see the [ASF's guidance](https://www.apache.org/security/asf-httpoxy-response.txt),
+but one possible configuration is:
+
+* Within `plugin.config`, inside the configuration directory (e.g. `/usr/local/etc/trafficserver` or `/etc/trafficserver`),
+  add the following directive:
+
+  ```
+  header_rewrite.so strip_proxy.conf
+  ```
+
+* Add the following to a new file named `strip_proxy.conf` in the same directory:
+
+  ```
+  cond %{READ_REQUEST_HDR_HOOK}
+  rm-header Proxy
+  ```
 
 ### HAProxy {#mitigate-haproxy}
 
@@ -284,19 +299,6 @@ an upgrade notification soon.
 ```
 
 See more information at the [litespeed blog](http://blog.litespeedtech.com/2016/07/18/the-httpoxy-vulnerability-has-been-taken-care-of-by-litespeed-automatically/)
-
-### Apache Traffic Server
-
-You can remove "Proxy"-Header by add in "plugin.conf" under /etc/trafficserver (Debian) or /usr/local/etc/trafficserver:
-```
-header_rewrite.so strip_proxy.conf
-```
-
-add to strip_proxy.conf in your Config-Folder:
-```
-cond %{READ_REQUEST_HDR_HOOK}
-rm-header Proxy
-```
 
 ### Other CGI software and applications
 
