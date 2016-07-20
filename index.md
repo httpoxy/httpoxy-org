@@ -244,10 +244,10 @@ the below mitigations in greater detail.
 
 Also important to know: httpoxy does not affect any Microsoft Web Frameworks, e.g. not ASP.NET nor Active Server Pages.
 But if you have installed PHP or any other third party framework on top of IIS, we recommend applying mitigation steps
-to protect from httpoxy attacks. You can either block requests containing a Proxy header, or clear the header. (The header
+to protect from httpoxy attacks. You can either block requests containing a `Proxy` header, or clear the header. (The header
 is safe to block, because browsers will not generally send it at all).
 
-To _block_ requests that contain a Proxy header (the preferred solution), run the following command line.
+To _block_ requests that contain a `Proxy` header (the preferred solution), run the following command line.
 
 ```
 appcmd set config /section:requestfiltering /+requestlimits.headerLimits.[header='proxy',sizelimit='0']
@@ -277,7 +277,7 @@ To _clear_ the value of the header, use the following URL Rewrite rule:
 
 ### Hiawatha
 
-You can block any request containing a Proxy header (or ban the sending client) via the UrlToolkit:
+You can block any request containing a `Proxy` header (or ban the sending client) via the UrlToolkit:
 
 ```
 UrlToolkit {
