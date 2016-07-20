@@ -8,15 +8,27 @@ if [ -z $DISTRIBUTION ]; then
   DISTRIBUTION=E1K52FAL2II0OL
 fi
 
+if [ -z $INVALIDATE_ALL ]; then
+  INVALIDATE_ALL=0
+fi
+
 set -e
 
 echo "Uploading site to bucket..."
 cd _site
-aws s3 cp . s3://$BUCKET/ --recursive
+aws s3 cp . "s3://${BUCKET}/" --recursive
 echo "done."
 
-echo "Invalidating cloudflare distribution"
 aws configure set preview.cloudfront true
-aws cloudfront create-invalidation \
-  --distribution-id $DISTRIBUTION \
-  --paths '/*'
+
+if [ $INVALIDATE_ALL -eq 0 ]; then
+    echo "Invalidating cloudflare distribution: just index page"
+    aws cloudfront create-invalidation \
+      --distribution-id "${DISTRIBUTION}" \
+      --paths "/index.html" "/"
+else
+    echo "Invalidating cloudflare distribution: all paths"
+    aws cloudfront create-invalidation \
+      --distribution-id "${DISTRIBUTION}" \
+      --paths "/*"
+fi
