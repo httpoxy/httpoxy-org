@@ -285,6 +285,19 @@ an upgrade notification soon.
 
 See more information at the [litespeed blog](http://blog.litespeedtech.com/2016/07/18/the-httpoxy-vulnerability-has-been-taken-care-of-by-litespeed-automatically/)
 
+### Apache Traffic Server
+
+You can remove "Proxy"-Header by add in "plugin.conf" under /etc/trafficserver (Debian) or /usr/local/etc/trafficserver:
+```
+header_rewrite.so strip_proxy.conf
+```
+
+add to strip_proxy.conf in your Config-Folder:
+```
+cond %{READ_REQUEST_HDR_HOOK}
+rm-header Proxy
+```
+
 ### Other CGI software and applications
 
 Please let us know of other places where httpoxy is found. We'd be happy to help you communicate fixes for your platform,
