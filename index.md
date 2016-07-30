@@ -523,8 +523,12 @@ The assigned CVEs so far:
 * CVE-2016-5386: Go
 * CVE-2016-5387: Apache HTTP Server
 * CVE-2016-5388: Apache Tomcat
+* CVE-2016-1000107: Erlang inets
+* CVE-2016-1000108: YAWS
 * CVE-2016-1000109: HHVM
 * CVE-2016-1000110: Python
+* CVE-2016-1000111: Python Twisted
+
 
 We suspect there may be more CVEs coming for httpoxy, as less common software is checked over. If you
 want to get a CVE assigned for an httpoxy issue, there are a couple of options:
