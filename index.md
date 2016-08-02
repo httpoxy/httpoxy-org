@@ -300,6 +300,17 @@ an upgrade notification soon.
 
 See more information at the [litespeed blog](http://blog.litespeedtech.com/2016/07/18/the-httpoxy-vulnerability-has-been-taken-care-of-by-litespeed-automatically/)
 
+### h2o Web Server
+
+Upgrade to `>= 2.0.2` and add this to your configuration:
+
+```
+setenv:
+  HTTP_PROXY: ""
+```
+
+More information can be found in this [GitHub pull request](https://github.com/h2o/h2o/pull/996).
+
 ### Other CGI software and applications
 
 Please let us know of other places where httpoxy is found. We'd be happy to help you communicate fixes for your platform,
