@@ -523,6 +523,8 @@ The assigned CVEs so far:
 * CVE-2016-5386: Go
 * CVE-2016-5387: Apache HTTP Server
 * CVE-2016-5388: Apache Tomcat
+* CVE-2016-6286: spiffy-cgi-handlers for CHICKEN
+* CVE-2016-6287: CHICKEN's http-client
 * CVE-2016-1000104: mod_fcgi
 * CVE-2016-1000105: Nginx cgi script
 * CVE-2016-1000107: Erlang inets
