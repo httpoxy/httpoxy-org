@@ -10,8 +10,8 @@ down to a simple namespace conflict:
 * `HTTP_PROXY` is a popular environment variable used to configure an outgoing proxy
 {: .lead}
 
-This leads to a remotely exploitable vulnerability. If you're running PHP or CGI, you should ***block the `Proxy` header***
-now. [Here's how.](#fix-now)
+This leads to a remotely exploitable vulnerability. If you're running PHP or CGI, you should block the `Proxy` header.
+[Here's how.](#fix-now)
 {: .lead}
 
 httpoxy is a vulnerability for server-side web applications. If you're not deploying code, you don't need to worry.
@@ -30,8 +30,15 @@ researchers to be able to scan for it quickly. Luckily, if you read on and
 find you are affected, [easy mitigations](#fix-now) are available.
 
 
+## Isn't this old news? Is this still a problem?
+{: .section}
 
+httpoxy **was disclosed in mid-2016**. If you're reading about it now for the first time, you can _probably_ relax and
+take your time reading about this quaint historical bug that _hopefully_ no longer affects any of the applications you
+maintain. But you should verify that to your own satisfaction.
 
+The content below this point reflects the original disclosure, and I'll be leaving the site up and mostly unchanged, other
+than noting fix versions where I can. I guess I'm just saying: the time for urgency was last year.
 
 
 
