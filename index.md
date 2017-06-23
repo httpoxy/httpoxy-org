@@ -73,10 +73,10 @@ commonly affected scenarios:
 * If you're using a vulnerable library, this vulnerability will affect any version of PHP
     * It even affects alternative PHP runtimes such as HHVM deployed under FastCGI
 * It is present in Guzzle, Artax, and probably many, many libraries
-    * Guzzle versions after 4.0.0rc2 are vulnerable, Guzzle 3 and below is not.
-    * Another example is in Composer's StreamContextBuilder utility class
+    * Guzzle versions in the range `>=4.0.0rc2,<6.2.1` are vulnerable, Guzzle 3 and below is not.
+    * Another example is (update: was) in Composer's StreamContextBuilder utility class
 
-So, for example, if you are using a Drupal module that uses Guzzle 6 and makes an outgoing HTTP request (for example,
+So, for example, if you are using a Drupal module that uses Guzzle `6.2.0` and makes an outgoing HTTP request (for example,
 to check a weather API), you are vulnerable to the request that plugin makes being "httpoxied".
 
 ### Python
@@ -87,6 +87,7 @@ will use a CGI handler like `wsgiref.handlers.CGIHandler`
   not affected), so vulnerable Python applications will probably be much rarer than vulnerable PHP applications.
   * wsgi, for example, is not vulnerable, because os.environ is not polluted by CGI data
 * Vulnerable versions of the requests library will trust and use `os.environ['HTTP_PROXY']`, without checking if CGI is in use
+* Update: Fixed in `2.7.13`, `3.4.6`, `3.5.3`, `3.6.0` (see [the Python advisory](https://python-security.readthedocs.io/vuln/cve-2016-1000110_httpoxy_attack.html))
 
 ### Go
 
@@ -96,6 +97,7 @@ the `net/http/cgi` package.
   relatively rare
   * Go's `net/http/fcgi` package, by comparison, does not set actual environment variables, so it is *not* vulnerable
 * Vulnerable versions of `net/http` will trust and use `HTTP_PROXY` for outgoing requests, without checking if CGI is in use
+* Update: Fixed in Go `1.7rc3`, all stable versions of `>=1.7`
 
 
 
