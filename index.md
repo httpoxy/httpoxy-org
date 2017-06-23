@@ -196,6 +196,11 @@ This will strip the header off requests:
 http-request del-header Proxy
 ```
 
+If your version of HAProxy is old (i.e. `1.4` or earlier), you may not have the `http-request del-header` directive.
+If so, you must also take care that headers are stripped from requests served after the first one over an HTTP 1.1
+keep-alive connection. (i.e. take special note of the limitation described in the first paragraph of [the 1.4 "header
+manipulation" documentation](https://cbonte.github.io/haproxy-dconv/1.4/configuration.html#6))
+
 ### Varnish {#mitigate-varnish}
 
 For Varnish, the following should unset the header. Add it to the pre-existing vcl_recv section:
@@ -323,8 +328,8 @@ More information can be found in this [GitHub pull request](https://github.com/h
 ### Other CGI software and applications
 
 Please let us know of other places where httpoxy is found. We'd be happy to help you communicate fixes for your platform,
-server or library if you are affected. Contact [contact@httpoxy.org](mailto:contact@httpoxy.org?subject=Fix) or
-[@httpoxy](https://twitter.com/httpoxy) to let us know. Or make a PR against the [httpoxy-org repo](https://github.com/httpoxy/httpoxy-org).
+server or library if you are affected. Contact [contact@httpoxy.org](mailto:contact@httpoxy.org?subject=Fix) to let us
+know. Or create a PR or issue against the [httpoxy-org repo](https://github.com/httpoxy/httpoxy-org) in GitHub.
 
 
 
@@ -393,7 +398,7 @@ the "misproxied" requests (because the web application is prevented from connect
 ### HTTPS
 
 And, of course, another defense-in-depth strategy that works is to use HTTPS for internal requests, not just for
-securing your site's connections to the outside world. Those aren't affected by `HTTP_PROXY`.
+securing your site's connections to the outside world. HTTPS requests aren't affected by `HTTP_PROXY`.
 
 
 
@@ -523,7 +528,8 @@ This bug was first discovered over 15 years ago. The timeline goes something lik
 
 So, the bug was lying dormant for years, like a latent infection: pox. We imagine that many people may have found the issue over
 the years, but never investigated its scope in other languages and libraries. If you've found a historical discussion
-of interest that we've missed, let us know.
+of interest that we've missed, let us know. You can contact [contact@httpoxy.org](mailto:contact@httpoxy.org?subject=History)
+or create an issue against the [httpoxy-org repo](https://github.com/httpoxy/httpoxy-org).
 
 
 
@@ -595,11 +601,22 @@ like, no permission/attribution necessary).
 I've put together some more opinionated notes on httpoxy on [my Medium account](https://medium.com/@nzdominic).
 
 Regards,<br />
-Dominic Scheirlinck and the httpoxy disclosure team
+Dominic Scheirlinck and the httpoxy disclosure team<br />
+July 2016
+
+
+
+
+
+## Contact
+{: .section}
+
+You can email [contact@httpoxy.org](mailto:contact@httpoxy.org?subject=Fix), or, for corrections or suggestions,
+ feel free to open an issue on the [httpoxy-org repo](https://github.com/httpoxy/httpoxy-org).
 
 
 <small>
-    Page updated at 2016-08-02 00:59 UTC
+    Page updated at 2017-06-23 14:17 UTC
 </small>
 
 
