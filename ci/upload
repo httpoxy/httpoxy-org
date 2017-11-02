@@ -1,11 +1,11 @@
 #!/bin/bash -x
 
 if [ -z $BUCKET ]; then
-  BUCKET=httpoxy         # 'real' bucket is just httpoxy
+  BUCKET=httpoxy-org         # 'real' bucket is just httpoxy
 fi
 
 if [ -z $DISTRIBUTION ]; then
-  DISTRIBUTION=E1K52FAL2II0OL
+  DISTRIBUTION=EW53J2AZFQ7UE
 fi
 
 if [ -z $INVALIDATE_ALL ]; then
