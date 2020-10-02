@@ -1,6 +1,5 @@
 # httpoxy.org
-## Disclosure site
-
+## Disclosure site amazing website
 This is a static Jekyll site, so you'll need:
 
 * Ruby >= 2.2
